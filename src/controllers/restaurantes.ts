@@ -1,109 +1,30 @@
 import { Request, Response } from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { prisma } from "../../config/prisma";
 
-const usuariosController = {
-  async login(request: Request, response: Response): Promise<void> {
-    const { email, senha } = request.body;
-
-    if (!email || !senha) {
-      response.status(400).json({ error: "Email e senha são obrigatórios." });
-      return;
-    }
-
-    try {
-      const usuario = await prisma.usuario.findUnique({ where: { email } });
-
-      if (!usuario) {
-        response.status(401).json({ error: "Credenciais inválidas." });
-        return;
-      }
-
-      const senhaValida = await bcrypt.compare(senha, usuario.senha);
-      if (!senhaValida) {
-        response.status(401).json({ error: "Credenciais inválidas." });
-        return;
-      }
-
-      const token = jwt.sign(
-        { id: usuario.id, email: usuario.email, role: usuario.role },
-        process.env.JWT_SECRET as string,
-        { expiresIn: "7d" },
-      );
-
-      response.status(200).json({
-        token,
-        usuario: {
-          id: usuario.id,
-          nome: usuario.nome,
-          email: usuario.email,
-          role: usuario.role,
-        },
-      });
-    } catch (err) {
-      response.status(500).json({
-        error: "Erro ao fazer login.",
-        detalhe: (err as Error).message,
-      });
-    }
-  },
-
-  async registrar(request: Request, response: Response): Promise<void> {
-    const { nome, email, senha, role } = request.body;
-
-    if (!nome || !email || !senha) {
-      response
-        .status(400)
-        .json({ error: "Nome, email e senha são obrigatórios." });
-      return;
-    }
-
-    try {
-      const existe = await prisma.usuario.findUnique({ where: { email } });
-      if (existe) {
-        response.status(409).json({ error: "Email já cadastrado." });
-        return;
-      }
-
-      const senhaHash = await bcrypt.hash(senha, 10);
-
-      const usuario = await prisma.usuario.create({
-        data: { nome, email, senha: senhaHash, role: role || "cliente" },
-        select: {
-          id: true,
-          nome: true,
-          email: true,
-          role: true,
-          criadoEm: true,
-        },
-      });
-
-      response.status(201).json(usuario);
-    } catch (err) {
-      response.status(500).json({
-        error: "Erro ao registrar usuário.",
-        detalhe: (err as Error).message,
-      });
-    }
-  },
-
+const restaurantesController = {
   async list(request: Request, response: Response): Promise<void> {
     try {
-      const usuarios = await prisma.usuario.findMany({
+      const restaurantes = await prisma.restaurante.findMany({
         select: {
           id: true,
           nome: true,
-          email: true,
-          role: true,
+          descricao: true,
+          endereco: true,
+          telefone: true,
+          categoria: true,
+          emoji: true,
+          tempo: true,
+          nota: true,
+          taxa: true,
           criadoEm: true,
         },
         orderBy: { nome: "asc" },
       });
-      response.status(200).json(usuarios);
+
+      response.status(200).json(restaurantes);
     } catch (err) {
       response.status(500).json({
-        error: "Erro ao listar usuários.",
+        error: "Erro ao listar restaurantes.",
         detalhe: (err as Error).message,
       });
     }
@@ -113,88 +34,51 @@ const usuariosController = {
     const { id } = request.params;
 
     try {
-      const usuario = await prisma.usuario.findUnique({
+      const restaurante = await prisma.restaurante.findUnique({
         where: { id: Number(id) },
-        select: {
-          id: true,
-          nome: true,
-          email: true,
-          role: true,
-          criadoEm: true,
+        include: {
+          produtos: true,
         },
       });
 
-      if (!usuario) {
-        response.status(404).json({ error: "Usuário não encontrado." });
+      if (!restaurante) {
+        response.status(404).json({ error: "Restaurante não encontrado." });
         return;
       }
 
-      response.status(200).json(usuario);
+      response.status(200).json(restaurante);
     } catch (err) {
       response.status(500).json({
-        error: "Erro ao buscar usuário.",
+        error: "Erro ao buscar restaurante.",
         detalhe: (err as Error).message,
       });
     }
   },
 
-  async update(request: Request, response: Response): Promise<void> {
-    const { id } = request.params;
-    const { nome, email, senha } = request.body;
-
-    try {
-      const data: any = {};
-      if (nome) data.nome = nome;
-      if (email) data.email = email;
-      if (senha) data.senha = await bcrypt.hash(senha, 10);
-
-      const usuario = await prisma.usuario.update({
-        where: { id: Number(id) },
-        data,
-        select: { id: true, nome: true, email: true, role: true },
-      });
-
-      response.status(200).json(usuario);
-    } catch (err: any) {
-      if (err.code === "P2025") {
-        response.status(404).json({ error: "Usuário não encontrado." });
-        return;
-      }
-      response
-        .status(500)
-        .json({ error: "Erro ao atualizar usuário.", detalhe: err.message });
-    }
-  },
-
-  async deleteById(request: Request, response: Response): Promise<void> {
-    const { id } = request.params;
-
-    try {
-      await prisma.usuario.delete({ where: { id: Number(id) } });
-      response
-        .status(200)
-        .json({ success: true, message: "Usuário deletado com sucesso." });
-    } catch (err: any) {
-      if (err.code === "P2025") {
-        response.status(404).json({ error: "Usuário não encontrado." });
-        return;
-      }
-      response
-        .status(500)
-        .json({ error: "Erro ao deletar usuário.", detalhe: err.message });
-    }
-  },
   async create(request: Request, response: Response): Promise<void> {
-    const { nome, endereco, telefone, categoria } = request.body;
+    const { nome, descricao, endereco, telefone, categoria, emoji, tempo, nota, taxa } =
+      request.body;
 
-    if (!nome) {
-      response.status(400).json({ error: "Nome é obrigatório." });
+    if (!nome || !endereco) {
+      response
+        .status(400)
+        .json({ error: "Nome e endereço são obrigatórios." });
       return;
     }
 
     try {
       const restaurante = await prisma.restaurante.create({
-        data: { nome, endereco, telefone, categoria },
+        data: {
+          nome,
+          descricao,
+          endereco,
+          telefone,
+          ...(categoria !== undefined && { categoria }),
+          ...(emoji !== undefined && { emoji }),
+          ...(tempo !== undefined && { tempo }),
+          ...(nota !== undefined && { nota: Number(nota) }),
+          ...(taxa !== undefined && { taxa: Number(taxa) }),
+        },
       });
 
       response.status(201).json(restaurante);
@@ -205,6 +89,61 @@ const usuariosController = {
       });
     }
   },
+
+  async update(request: Request, response: Response): Promise<void> {
+    const { id } = request.params;
+    const { nome, descricao, endereco, telefone, categoria, emoji, tempo, nota, taxa } =
+      request.body;
+
+    try {
+      const data: Record<string, unknown> = {};
+      if (nome !== undefined) data.nome = nome;
+      if (descricao !== undefined) data.descricao = descricao;
+      if (endereco !== undefined) data.endereco = endereco;
+      if (telefone !== undefined) data.telefone = telefone;
+      if (categoria !== undefined) data.categoria = categoria;
+      if (emoji !== undefined) data.emoji = emoji;
+      if (tempo !== undefined) data.tempo = tempo;
+      if (nota !== undefined) data.nota = Number(nota);
+      if (taxa !== undefined) data.taxa = Number(taxa);
+
+      const restaurante = await prisma.restaurante.update({
+        where: { id: Number(id) },
+        data,
+      });
+
+      response.status(200).json(restaurante);
+    } catch (err: any) {
+      if (err.code === "P2025") {
+        response.status(404).json({ error: "Restaurante não encontrado." });
+        return;
+      }
+      response.status(500).json({
+        error: "Erro ao atualizar restaurante.",
+        detalhe: err.message,
+      });
+    }
+  },
+
+  async deleteById(request: Request, response: Response): Promise<void> {
+    const { id } = request.params;
+
+    try {
+      await prisma.restaurante.delete({ where: { id: Number(id) } });
+      response
+        .status(200)
+        .json({ success: true, message: "Restaurante deletado com sucesso." });
+    } catch (err: any) {
+      if (err.code === "P2025") {
+        response.status(404).json({ error: "Restaurante não encontrado." });
+        return;
+      }
+      response.status(500).json({
+        error: "Erro ao deletar restaurante.",
+        detalhe: err.message,
+      });
+    }
+  },
 };
 
-export default usuariosController;
+export default restaurantesController;

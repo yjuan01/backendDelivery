@@ -72,12 +72,37 @@ const usuariosController = {
   async list(request: Request, response: Response): Promise<void> {
     try {
       const usuarios = await prisma.usuario.findMany({
-        select: { id: true, nome: true, email: true, role: true, criadoEm: true },
+        select: { id: true, nome: true, email: true, role: true, criadoEm: true, senha: true },
         orderBy: { nome: "asc" },
       });
       response.status(200).json(usuarios);
     } catch (err) {
       response.status(500).json({ error: "Erro ao listar usuários.", detalhe: (err as Error).message });
+    }
+  },
+
+  async perfil(request: Request, response: Response): Promise<void> {
+    const usuarioId = request.usuario?.id;
+
+    if (!usuarioId) {
+      response.status(401).json({ error: "Token inválido." });
+      return;
+    }
+
+    try {
+      const usuario = await prisma.usuario.findUnique({
+        where: { id: usuarioId },
+        select: { id: true, nome: true, email: true, role: true, criadoEm: true },
+      });
+
+      if (!usuario) {
+        response.status(404).json({ error: "Usuário não encontrado." });
+        return;
+      }
+
+      response.status(200).json(usuario);
+    } catch (err) {
+      response.status(500).json({ error: "Erro ao buscar perfil do usuário.", detalhe: (err as Error).message });
     }
   },
 

@@ -28,6 +28,11 @@ model Restaurante {
   descricao String?
   endereco  String
   telefone  String?
+  categoria String    @default("Geral")
+  emoji     String    @default("🍽️")
+  tempo     String    @default("30-40 min")
+  nota      Float     @default(4.5)
+  taxa      Float     @default(0)
   criadoEm  DateTime  @default(now())
   produtos  Produto[]
   pedidos   Pedido[]

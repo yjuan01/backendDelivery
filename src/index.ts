@@ -6,7 +6,15 @@ dotenv.config();
 
 const server = http.createServer(app);
 
-const PORT = process.env.PORT || 8080;
+const PORT = Number(process.env.PORT) || 8080;
+
+server.on("error", (error: NodeJS.ErrnoException) => {
+  if (error && error.code === "EADDRINUSE") {
+    console.error(`Porta ${PORT} já está em uso.`);
+    process.exit(1);
+  }
+  console.error("Erro no servidor:", error);
+});
 
 server.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
