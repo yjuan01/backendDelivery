@@ -19,7 +19,7 @@ model Usuario {
   senha     String
   role      String   @default("cliente") // "cliente" | "admin"
   criadoEm  DateTime @default(now())
-  pedidos   Pedido[]
+  pedidos   Pedido[] @relation(onDelete: Cascade)
 }
 
 model Restaurante {
@@ -34,8 +34,8 @@ model Restaurante {
   nota      Float     @default(4.5)
   taxa      Float     @default(0)
   criadoEm  DateTime  @default(now())
-  produtos  Produto[]
-  pedidos   Pedido[]
+  produtos  Produto[] @relation(onDelete: Cascade)
+  pedidos   Pedido[]  @relation(onDelete: Cascade)
 }
 
 model Produto {
@@ -47,7 +47,7 @@ model Produto {
   criadoEm      DateTime    @default(now())
   restauranteId Int
   restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
-  itensPedido   ItemPedido[]
+  itensPedido   ItemPedido[] @relation(onDelete: Cascade)
 }
 
 model Pedido {
@@ -61,7 +61,7 @@ model Pedido {
   restauranteId Int
   usuario       Usuario     @relation(fields: [usuarioId], references: [id])
   restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
-  itens         ItemPedido[]
+  itens         ItemPedido[] @relation(onDelete: Cascade)
 }
 
 model ItemPedido {

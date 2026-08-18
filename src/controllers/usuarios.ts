@@ -156,6 +156,12 @@ const usuariosController = {
     const { id } = request.params;
 
     try {
+      // Primeiro deleta todos os pedidos associados ao usuário
+      await prisma.pedido.deleteMany({
+        where: { usuarioId: Number(id) }
+      });
+
+      // Depois deleta o usuário
       await prisma.usuario.delete({ where: { id: Number(id) } });
       response.status(200).json({ success: true, message: "Usuário deletado com sucesso." });
     } catch (err: any) {

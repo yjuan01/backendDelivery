@@ -129,6 +129,28 @@ const restaurantesController = {
     const { id } = request.params;
 
     try {
+      // Deleta todos os itens de pedidos dos produtos do restaurante
+      const produtos = await prisma.produto.findMany({
+        where: { restauranteId: Number(id) }
+      });
+
+      for (const produto of produtos) {
+        await prisma.itemPedido.deleteMany({
+          where: { produtoId: produto.id }
+        });
+      }
+
+      // Deleta todos os produtos do restaurante
+      await prisma.produto.deleteMany({
+        where: { restauranteId: Number(id) }
+      });
+
+      // Deleta todos os pedidos do restaurante
+      await prisma.pedido.deleteMany({
+        where: { restauranteId: Number(id) }
+      });
+
+      // Finalmente deleta o restaurante
       await prisma.restaurante.delete({ where: { id: Number(id) } });
       response
         .status(200)

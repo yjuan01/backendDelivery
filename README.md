@@ -114,7 +114,7 @@ npm run dev
 7. Abra a documentação Swagger em:
 
 ```text
-http://localhost:8080/docs
+http://localhost:3000/docs
 ```
 
 ## 🔐 Autenticação

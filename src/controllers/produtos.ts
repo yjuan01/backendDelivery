@@ -87,6 +87,12 @@ const produtosController = {
     const { id } = request.params;
 
     try {
+      // Deleta todos os itens de pedido associados ao produto
+      await prisma.itemPedido.deleteMany({
+        where: { produtoId: Number(id) }
+      });
+
+      // Deleta o produto
       await prisma.produto.delete({ where: { id: Number(id) } });
       response.status(200).json({ success: true, message: "Produto deletado com sucesso." });
     } catch (err: any) {
