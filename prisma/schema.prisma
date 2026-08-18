@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -19,49 +14,51 @@ model Usuario {
   senha     String
   role      String   @default("cliente") // "cliente" | "admin"
   criadoEm  DateTime @default(now())
-  pedidos   Pedido[] @relation(onDelete: Cascade)
+  pedidos   Pedido[]
 }
 
 model Restaurante {
-  id        Int       @id @default(autoincrement())
-  nome      String
-  descricao String?
-  endereco  String
-  telefone  String?
-  categoria String    @default("Geral")
-  emoji     String    @default("🍽️")
-  tempo     String    @default("30-40 min")
-  nota      Float     @default(4.5)
-  taxa      Float     @default(0)
-  criadoEm  DateTime  @default(now())
-  produtos  Produto[] @relation(onDelete: Cascade)
-  pedidos   Pedido[]  @relation(onDelete: Cascade)
+  id           Int       @id @default(autoincrement())
+  nome         String
+  descricao    String?
+  endereco     String
+  telefone     String?
+  categoria    String    @default("Geral")
+  imagemCapa   String?
+  imagemPerfil String?
+  tempo        String    @default("30-40 min")
+  nota         Float     @default(4.5)
+  taxa         Float     @default(0)
+  criadoEm     DateTime  @default(now())
+  produtos     Produto[]
+  pedidos      Pedido[]
 }
 
 model Produto {
-  id            Int         @id @default(autoincrement())
+  id            Int          @id @default(autoincrement())
   nome          String
   descricao     String?
   preco         Float
-  disponivel    Boolean     @default(true)
-  criadoEm      DateTime    @default(now())
+  imagemUrl     String?
+  disponivel    Boolean      @default(true)
+  criadoEm      DateTime     @default(now())
   restauranteId Int
-  restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
-  itensPedido   ItemPedido[] @relation(onDelete: Cascade)
+  restaurante   Restaurante  @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
+  itensPedido   ItemPedido[]
 }
 
 model Pedido {
-  id            Int         @id @default(autoincrement())
-  status        String      @default("pendente") // "pendente" | "confirmado" | "em_preparo" | "saiu_entrega" | "entregue" | "cancelado"
+  id            Int          @id @default(autoincrement())
+  status        String       @default("pendente") // "pendente" | "confirmado" | "em_preparo" | "saiu_entrega" | "entregue" | "cancelado"
   total         Float
   observacao    String?
-  criadoEm      DateTime    @default(now())
-  atualizadoEm  DateTime    @updatedAt
+  criadoEm      DateTime     @default(now())
+  atualizadoEm  DateTime     @updatedAt
   usuarioId     Int
   restauranteId Int
-  usuario       Usuario     @relation(fields: [usuarioId], references: [id])
-  restaurante   Restaurante @relation(fields: [restauranteId], references: [id])
-  itens         ItemPedido[] @relation(onDelete: Cascade)
+  usuario       Usuario      @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  restaurante   Restaurante  @relation(fields: [restauranteId], references: [id], onDelete: Cascade)
+  itens         ItemPedido[]
 }
 
 model ItemPedido {
@@ -70,6 +67,6 @@ model ItemPedido {
   precoUni   Float
   pedidoId   Int
   produtoId  Int
-  pedido     Pedido  @relation(fields: [pedidoId], references: [id])
-  produto    Produto @relation(fields: [produtoId], references: [id])
+  pedido     Pedido  @relation(fields: [pedidoId], references: [id], onDelete: Cascade)
+  produto    Produto @relation(fields: [produtoId], references: [id], onDelete: Cascade)
 }

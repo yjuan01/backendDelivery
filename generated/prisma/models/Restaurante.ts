@@ -45,7 +45,8 @@ export type RestauranteMinAggregateOutputType = {
   endereco: string | null
   telefone: string | null
   categoria: string | null
-  emoji: string | null
+  imagemCapa: string | null
+  imagemPerfil: string | null
   tempo: string | null
   nota: number | null
   taxa: number | null
@@ -59,7 +60,8 @@ export type RestauranteMaxAggregateOutputType = {
   endereco: string | null
   telefone: string | null
   categoria: string | null
-  emoji: string | null
+  imagemCapa: string | null
+  imagemPerfil: string | null
   tempo: string | null
   nota: number | null
   taxa: number | null
@@ -73,7 +75,8 @@ export type RestauranteCountAggregateOutputType = {
   endereco: number
   telefone: number
   categoria: number
-  emoji: number
+  imagemCapa: number
+  imagemPerfil: number
   tempo: number
   nota: number
   taxa: number
@@ -101,7 +104,8 @@ export type RestauranteMinAggregateInputType = {
   endereco?: true
   telefone?: true
   categoria?: true
-  emoji?: true
+  imagemCapa?: true
+  imagemPerfil?: true
   tempo?: true
   nota?: true
   taxa?: true
@@ -115,7 +119,8 @@ export type RestauranteMaxAggregateInputType = {
   endereco?: true
   telefone?: true
   categoria?: true
-  emoji?: true
+  imagemCapa?: true
+  imagemPerfil?: true
   tempo?: true
   nota?: true
   taxa?: true
@@ -129,7 +134,8 @@ export type RestauranteCountAggregateInputType = {
   endereco?: true
   telefone?: true
   categoria?: true
-  emoji?: true
+  imagemCapa?: true
+  imagemPerfil?: true
   tempo?: true
   nota?: true
   taxa?: true
@@ -230,7 +236,8 @@ export type RestauranteGroupByOutputType = {
   endereco: string
   telefone: string | null
   categoria: string
-  emoji: string
+  imagemCapa: string | null
+  imagemPerfil: string | null
   tempo: string
   nota: number
   taxa: number
@@ -267,7 +274,8 @@ export type RestauranteWhereInput = {
   endereco?: Prisma.StringFilter<"Restaurante"> | string
   telefone?: Prisma.StringNullableFilter<"Restaurante"> | string | null
   categoria?: Prisma.StringFilter<"Restaurante"> | string
-  emoji?: Prisma.StringFilter<"Restaurante"> | string
+  imagemCapa?: Prisma.StringNullableFilter<"Restaurante"> | string | null
+  imagemPerfil?: Prisma.StringNullableFilter<"Restaurante"> | string | null
   tempo?: Prisma.StringFilter<"Restaurante"> | string
   nota?: Prisma.FloatFilter<"Restaurante"> | number
   taxa?: Prisma.FloatFilter<"Restaurante"> | number
@@ -283,7 +291,8 @@ export type RestauranteOrderByWithRelationInput = {
   endereco?: Prisma.SortOrder
   telefone?: Prisma.SortOrderInput | Prisma.SortOrder
   categoria?: Prisma.SortOrder
-  emoji?: Prisma.SortOrder
+  imagemCapa?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagemPerfil?: Prisma.SortOrderInput | Prisma.SortOrder
   tempo?: Prisma.SortOrder
   nota?: Prisma.SortOrder
   taxa?: Prisma.SortOrder
@@ -302,7 +311,8 @@ export type RestauranteWhereUniqueInput = Prisma.AtLeast<{
   endereco?: Prisma.StringFilter<"Restaurante"> | string
   telefone?: Prisma.StringNullableFilter<"Restaurante"> | string | null
   categoria?: Prisma.StringFilter<"Restaurante"> | string
-  emoji?: Prisma.StringFilter<"Restaurante"> | string
+  imagemCapa?: Prisma.StringNullableFilter<"Restaurante"> | string | null
+  imagemPerfil?: Prisma.StringNullableFilter<"Restaurante"> | string | null
   tempo?: Prisma.StringFilter<"Restaurante"> | string
   nota?: Prisma.FloatFilter<"Restaurante"> | number
   taxa?: Prisma.FloatFilter<"Restaurante"> | number
@@ -318,7 +328,8 @@ export type RestauranteOrderByWithAggregationInput = {
   endereco?: Prisma.SortOrder
   telefone?: Prisma.SortOrderInput | Prisma.SortOrder
   categoria?: Prisma.SortOrder
-  emoji?: Prisma.SortOrder
+  imagemCapa?: Prisma.SortOrderInput | Prisma.SortOrder
+  imagemPerfil?: Prisma.SortOrderInput | Prisma.SortOrder
   tempo?: Prisma.SortOrder
   nota?: Prisma.SortOrder
   taxa?: Prisma.SortOrder
@@ -340,7 +351,8 @@ export type RestauranteScalarWhereWithAggregatesInput = {
   endereco?: Prisma.StringWithAggregatesFilter<"Restaurante"> | string
   telefone?: Prisma.StringNullableWithAggregatesFilter<"Restaurante"> | string | null
   categoria?: Prisma.StringWithAggregatesFilter<"Restaurante"> | string
-  emoji?: Prisma.StringWithAggregatesFilter<"Restaurante"> | string
+  imagemCapa?: Prisma.StringNullableWithAggregatesFilter<"Restaurante"> | string | null
+  imagemPerfil?: Prisma.StringNullableWithAggregatesFilter<"Restaurante"> | string | null
   tempo?: Prisma.StringWithAggregatesFilter<"Restaurante"> | string
   nota?: Prisma.FloatWithAggregatesFilter<"Restaurante"> | number
   taxa?: Prisma.FloatWithAggregatesFilter<"Restaurante"> | number
@@ -353,7 +365,8 @@ export type RestauranteCreateInput = {
   endereco: string
   telefone?: string | null
   categoria?: string
-  emoji?: string
+  imagemCapa?: string | null
+  imagemPerfil?: string | null
   tempo?: string
   nota?: number
   taxa?: number
@@ -369,7 +382,8 @@ export type RestauranteUncheckedCreateInput = {
   endereco: string
   telefone?: string | null
   categoria?: string
-  emoji?: string
+  imagemCapa?: string | null
+  imagemPerfil?: string | null
   tempo?: string
   nota?: number
   taxa?: number
@@ -384,7 +398,8 @@ export type RestauranteUpdateInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -400,7 +415,8 @@ export type RestauranteUncheckedUpdateInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -416,7 +432,8 @@ export type RestauranteCreateManyInput = {
   endereco: string
   telefone?: string | null
   categoria?: string
-  emoji?: string
+  imagemCapa?: string | null
+  imagemPerfil?: string | null
   tempo?: string
   nota?: number
   taxa?: number
@@ -429,7 +446,8 @@ export type RestauranteUpdateManyMutationInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -443,7 +461,8 @@ export type RestauranteUncheckedUpdateManyInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -457,7 +476,8 @@ export type RestauranteCountOrderByAggregateInput = {
   endereco?: Prisma.SortOrder
   telefone?: Prisma.SortOrder
   categoria?: Prisma.SortOrder
-  emoji?: Prisma.SortOrder
+  imagemCapa?: Prisma.SortOrder
+  imagemPerfil?: Prisma.SortOrder
   tempo?: Prisma.SortOrder
   nota?: Prisma.SortOrder
   taxa?: Prisma.SortOrder
@@ -477,7 +497,8 @@ export type RestauranteMaxOrderByAggregateInput = {
   endereco?: Prisma.SortOrder
   telefone?: Prisma.SortOrder
   categoria?: Prisma.SortOrder
-  emoji?: Prisma.SortOrder
+  imagemCapa?: Prisma.SortOrder
+  imagemPerfil?: Prisma.SortOrder
   tempo?: Prisma.SortOrder
   nota?: Prisma.SortOrder
   taxa?: Prisma.SortOrder
@@ -491,7 +512,8 @@ export type RestauranteMinOrderByAggregateInput = {
   endereco?: Prisma.SortOrder
   telefone?: Prisma.SortOrder
   categoria?: Prisma.SortOrder
-  emoji?: Prisma.SortOrder
+  imagemCapa?: Prisma.SortOrder
+  imagemPerfil?: Prisma.SortOrder
   tempo?: Prisma.SortOrder
   nota?: Prisma.SortOrder
   taxa?: Prisma.SortOrder
@@ -555,7 +577,8 @@ export type RestauranteCreateWithoutProdutosInput = {
   endereco: string
   telefone?: string | null
   categoria?: string
-  emoji?: string
+  imagemCapa?: string | null
+  imagemPerfil?: string | null
   tempo?: string
   nota?: number
   taxa?: number
@@ -570,7 +593,8 @@ export type RestauranteUncheckedCreateWithoutProdutosInput = {
   endereco: string
   telefone?: string | null
   categoria?: string
-  emoji?: string
+  imagemCapa?: string | null
+  imagemPerfil?: string | null
   tempo?: string
   nota?: number
   taxa?: number
@@ -600,7 +624,8 @@ export type RestauranteUpdateWithoutProdutosInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -615,7 +640,8 @@ export type RestauranteUncheckedUpdateWithoutProdutosInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -629,7 +655,8 @@ export type RestauranteCreateWithoutPedidosInput = {
   endereco: string
   telefone?: string | null
   categoria?: string
-  emoji?: string
+  imagemCapa?: string | null
+  imagemPerfil?: string | null
   tempo?: string
   nota?: number
   taxa?: number
@@ -644,7 +671,8 @@ export type RestauranteUncheckedCreateWithoutPedidosInput = {
   endereco: string
   telefone?: string | null
   categoria?: string
-  emoji?: string
+  imagemCapa?: string | null
+  imagemPerfil?: string | null
   tempo?: string
   nota?: number
   taxa?: number
@@ -674,7 +702,8 @@ export type RestauranteUpdateWithoutPedidosInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -689,7 +718,8 @@ export type RestauranteUncheckedUpdateWithoutPedidosInput = {
   endereco?: Prisma.StringFieldUpdateOperationsInput | string
   telefone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   categoria?: Prisma.StringFieldUpdateOperationsInput | string
-  emoji?: Prisma.StringFieldUpdateOperationsInput | string
+  imagemCapa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagemPerfil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tempo?: Prisma.StringFieldUpdateOperationsInput | string
   nota?: Prisma.FloatFieldUpdateOperationsInput | number
   taxa?: Prisma.FloatFieldUpdateOperationsInput | number
@@ -744,7 +774,8 @@ export type RestauranteSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   endereco?: boolean
   telefone?: boolean
   categoria?: boolean
-  emoji?: boolean
+  imagemCapa?: boolean
+  imagemPerfil?: boolean
   tempo?: boolean
   nota?: boolean
   taxa?: boolean
@@ -761,7 +792,8 @@ export type RestauranteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   endereco?: boolean
   telefone?: boolean
   categoria?: boolean
-  emoji?: boolean
+  imagemCapa?: boolean
+  imagemPerfil?: boolean
   tempo?: boolean
   nota?: boolean
   taxa?: boolean
@@ -775,7 +807,8 @@ export type RestauranteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   endereco?: boolean
   telefone?: boolean
   categoria?: boolean
-  emoji?: boolean
+  imagemCapa?: boolean
+  imagemPerfil?: boolean
   tempo?: boolean
   nota?: boolean
   taxa?: boolean
@@ -789,14 +822,15 @@ export type RestauranteSelectScalar = {
   endereco?: boolean
   telefone?: boolean
   categoria?: boolean
-  emoji?: boolean
+  imagemCapa?: boolean
+  imagemPerfil?: boolean
   tempo?: boolean
   nota?: boolean
   taxa?: boolean
   criadoEm?: boolean
 }
 
-export type RestauranteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "descricao" | "endereco" | "telefone" | "categoria" | "emoji" | "tempo" | "nota" | "taxa" | "criadoEm", ExtArgs["result"]["restaurante"]>
+export type RestauranteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "descricao" | "endereco" | "telefone" | "categoria" | "imagemCapa" | "imagemPerfil" | "tempo" | "nota" | "taxa" | "criadoEm", ExtArgs["result"]["restaurante"]>
 export type RestauranteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   produtos?: boolean | Prisma.Restaurante$produtosArgs<ExtArgs>
   pedidos?: boolean | Prisma.Restaurante$pedidosArgs<ExtArgs>
@@ -818,7 +852,8 @@ export type $RestaurantePayload<ExtArgs extends runtime.Types.Extensions.Interna
     endereco: string
     telefone: string | null
     categoria: string
-    emoji: string
+    imagemCapa: string | null
+    imagemPerfil: string | null
     tempo: string
     nota: number
     taxa: number
@@ -1254,7 +1289,8 @@ export interface RestauranteFieldRefs {
   readonly endereco: Prisma.FieldRef<"Restaurante", 'String'>
   readonly telefone: Prisma.FieldRef<"Restaurante", 'String'>
   readonly categoria: Prisma.FieldRef<"Restaurante", 'String'>
-  readonly emoji: Prisma.FieldRef<"Restaurante", 'String'>
+  readonly imagemCapa: Prisma.FieldRef<"Restaurante", 'String'>
+  readonly imagemPerfil: Prisma.FieldRef<"Restaurante", 'String'>
   readonly tempo: Prisma.FieldRef<"Restaurante", 'String'>
   readonly nota: Prisma.FieldRef<"Restaurante", 'Float'>
   readonly taxa: Prisma.FieldRef<"Restaurante", 'Float'>

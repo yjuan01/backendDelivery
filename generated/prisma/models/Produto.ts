@@ -43,6 +43,7 @@ export type ProdutoMinAggregateOutputType = {
   nome: string | null
   descricao: string | null
   preco: number | null
+  imagemUrl: string | null
   disponivel: boolean | null
   criadoEm: Date | null
   restauranteId: number | null
@@ -53,6 +54,7 @@ export type ProdutoMaxAggregateOutputType = {
   nome: string | null
   descricao: string | null
   preco: number | null
+  imagemUrl: string | null
   disponivel: boolean | null
   criadoEm: Date | null
   restauranteId: number | null
@@ -63,6 +65,7 @@ export type ProdutoCountAggregateOutputType = {
   nome: number
   descricao: number
   preco: number
+  imagemUrl: number
   disponivel: number
   criadoEm: number
   restauranteId: number
@@ -87,6 +90,7 @@ export type ProdutoMinAggregateInputType = {
   nome?: true
   descricao?: true
   preco?: true
+  imagemUrl?: true
   disponivel?: true
   criadoEm?: true
   restauranteId?: true
@@ -97,6 +101,7 @@ export type ProdutoMaxAggregateInputType = {
   nome?: true
   descricao?: true
   preco?: true
+  imagemUrl?: true
   disponivel?: true
   criadoEm?: true
   restauranteId?: true
@@ -107,6 +112,7 @@ export type ProdutoCountAggregateInputType = {
   nome?: true
   descricao?: true
   preco?: true
+  imagemUrl?: true
   disponivel?: true
   criadoEm?: true
   restauranteId?: true
@@ -204,6 +210,7 @@ export type ProdutoGroupByOutputType = {
   nome: string
   descricao: string | null
   preco: number
+  imagemUrl: string | null
   disponivel: boolean
   criadoEm: Date
   restauranteId: number
@@ -237,6 +244,7 @@ export type ProdutoWhereInput = {
   nome?: Prisma.StringFilter<"Produto"> | string
   descricao?: Prisma.StringNullableFilter<"Produto"> | string | null
   preco?: Prisma.FloatFilter<"Produto"> | number
+  imagemUrl?: Prisma.StringNullableFilter<"Produto"> | string | null
   disponivel?: Prisma.BoolFilter<"Produto"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Produto"> | Date | string
   restauranteId?: Prisma.IntFilter<"Produto"> | number
@@ -249,6 +257,7 @@ export type ProdutoOrderByWithRelationInput = {
   nome?: Prisma.SortOrder
   descricao?: Prisma.SortOrderInput | Prisma.SortOrder
   preco?: Prisma.SortOrder
+  imagemUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   disponivel?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   restauranteId?: Prisma.SortOrder
@@ -264,6 +273,7 @@ export type ProdutoWhereUniqueInput = Prisma.AtLeast<{
   nome?: Prisma.StringFilter<"Produto"> | string
   descricao?: Prisma.StringNullableFilter<"Produto"> | string | null
   preco?: Prisma.FloatFilter<"Produto"> | number
+  imagemUrl?: Prisma.StringNullableFilter<"Produto"> | string | null
   disponivel?: Prisma.BoolFilter<"Produto"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Produto"> | Date | string
   restauranteId?: Prisma.IntFilter<"Produto"> | number
@@ -276,6 +286,7 @@ export type ProdutoOrderByWithAggregationInput = {
   nome?: Prisma.SortOrder
   descricao?: Prisma.SortOrderInput | Prisma.SortOrder
   preco?: Prisma.SortOrder
+  imagemUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   disponivel?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   restauranteId?: Prisma.SortOrder
@@ -294,6 +305,7 @@ export type ProdutoScalarWhereWithAggregatesInput = {
   nome?: Prisma.StringWithAggregatesFilter<"Produto"> | string
   descricao?: Prisma.StringNullableWithAggregatesFilter<"Produto"> | string | null
   preco?: Prisma.FloatWithAggregatesFilter<"Produto"> | number
+  imagemUrl?: Prisma.StringNullableWithAggregatesFilter<"Produto"> | string | null
   disponivel?: Prisma.BoolWithAggregatesFilter<"Produto"> | boolean
   criadoEm?: Prisma.DateTimeWithAggregatesFilter<"Produto"> | Date | string
   restauranteId?: Prisma.IntWithAggregatesFilter<"Produto"> | number
@@ -303,6 +315,7 @@ export type ProdutoCreateInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
   restaurante: Prisma.RestauranteCreateNestedOneWithoutProdutosInput
@@ -314,6 +327,7 @@ export type ProdutoUncheckedCreateInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
   restauranteId: number
@@ -324,6 +338,7 @@ export type ProdutoUpdateInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurante?: Prisma.RestauranteUpdateOneRequiredWithoutProdutosNestedInput
@@ -335,6 +350,7 @@ export type ProdutoUncheckedUpdateInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restauranteId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -346,6 +362,7 @@ export type ProdutoCreateManyInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
   restauranteId: number
@@ -355,6 +372,7 @@ export type ProdutoUpdateManyMutationInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -364,6 +382,7 @@ export type ProdutoUncheckedUpdateManyInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restauranteId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -384,6 +403,7 @@ export type ProdutoCountOrderByAggregateInput = {
   nome?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
   preco?: Prisma.SortOrder
+  imagemUrl?: Prisma.SortOrder
   disponivel?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   restauranteId?: Prisma.SortOrder
@@ -400,6 +420,7 @@ export type ProdutoMaxOrderByAggregateInput = {
   nome?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
   preco?: Prisma.SortOrder
+  imagemUrl?: Prisma.SortOrder
   disponivel?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   restauranteId?: Prisma.SortOrder
@@ -410,6 +431,7 @@ export type ProdutoMinOrderByAggregateInput = {
   nome?: Prisma.SortOrder
   descricao?: Prisma.SortOrder
   preco?: Prisma.SortOrder
+  imagemUrl?: Prisma.SortOrder
   disponivel?: Prisma.SortOrder
   criadoEm?: Prisma.SortOrder
   restauranteId?: Prisma.SortOrder
@@ -490,6 +512,7 @@ export type ProdutoCreateWithoutRestauranteInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
   itensPedido?: Prisma.ItemPedidoCreateNestedManyWithoutProdutoInput
@@ -500,6 +523,7 @@ export type ProdutoUncheckedCreateWithoutRestauranteInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
   itensPedido?: Prisma.ItemPedidoUncheckedCreateNestedManyWithoutProdutoInput
@@ -538,6 +562,7 @@ export type ProdutoScalarWhereInput = {
   nome?: Prisma.StringFilter<"Produto"> | string
   descricao?: Prisma.StringNullableFilter<"Produto"> | string | null
   preco?: Prisma.FloatFilter<"Produto"> | number
+  imagemUrl?: Prisma.StringNullableFilter<"Produto"> | string | null
   disponivel?: Prisma.BoolFilter<"Produto"> | boolean
   criadoEm?: Prisma.DateTimeFilter<"Produto"> | Date | string
   restauranteId?: Prisma.IntFilter<"Produto"> | number
@@ -547,6 +572,7 @@ export type ProdutoCreateWithoutItensPedidoInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
   restaurante: Prisma.RestauranteCreateNestedOneWithoutProdutosInput
@@ -557,6 +583,7 @@ export type ProdutoUncheckedCreateWithoutItensPedidoInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
   restauranteId: number
@@ -582,6 +609,7 @@ export type ProdutoUpdateWithoutItensPedidoInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restaurante?: Prisma.RestauranteUpdateOneRequiredWithoutProdutosNestedInput
@@ -592,6 +620,7 @@ export type ProdutoUncheckedUpdateWithoutItensPedidoInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   restauranteId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -602,6 +631,7 @@ export type ProdutoCreateManyRestauranteInput = {
   nome: string
   descricao?: string | null
   preco: number
+  imagemUrl?: string | null
   disponivel?: boolean
   criadoEm?: Date | string
 }
@@ -610,6 +640,7 @@ export type ProdutoUpdateWithoutRestauranteInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   itensPedido?: Prisma.ItemPedidoUpdateManyWithoutProdutoNestedInput
@@ -620,6 +651,7 @@ export type ProdutoUncheckedUpdateWithoutRestauranteInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   itensPedido?: Prisma.ItemPedidoUncheckedUpdateManyWithoutProdutoNestedInput
@@ -630,6 +662,7 @@ export type ProdutoUncheckedUpdateManyWithoutRestauranteInput = {
   nome?: Prisma.StringFieldUpdateOperationsInput | string
   descricao?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   preco?: Prisma.FloatFieldUpdateOperationsInput | number
+  imagemUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   disponivel?: Prisma.BoolFieldUpdateOperationsInput | boolean
   criadoEm?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -670,6 +703,7 @@ export type ProdutoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   nome?: boolean
   descricao?: boolean
   preco?: boolean
+  imagemUrl?: boolean
   disponivel?: boolean
   criadoEm?: boolean
   restauranteId?: boolean
@@ -683,6 +717,7 @@ export type ProdutoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   nome?: boolean
   descricao?: boolean
   preco?: boolean
+  imagemUrl?: boolean
   disponivel?: boolean
   criadoEm?: boolean
   restauranteId?: boolean
@@ -694,6 +729,7 @@ export type ProdutoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   nome?: boolean
   descricao?: boolean
   preco?: boolean
+  imagemUrl?: boolean
   disponivel?: boolean
   criadoEm?: boolean
   restauranteId?: boolean
@@ -705,12 +741,13 @@ export type ProdutoSelectScalar = {
   nome?: boolean
   descricao?: boolean
   preco?: boolean
+  imagemUrl?: boolean
   disponivel?: boolean
   criadoEm?: boolean
   restauranteId?: boolean
 }
 
-export type ProdutoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "descricao" | "preco" | "disponivel" | "criadoEm" | "restauranteId", ExtArgs["result"]["produto"]>
+export type ProdutoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nome" | "descricao" | "preco" | "imagemUrl" | "disponivel" | "criadoEm" | "restauranteId", ExtArgs["result"]["produto"]>
 export type ProdutoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   restaurante?: boolean | Prisma.RestauranteDefaultArgs<ExtArgs>
   itensPedido?: boolean | Prisma.Produto$itensPedidoArgs<ExtArgs>
@@ -734,6 +771,7 @@ export type $ProdutoPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     nome: string
     descricao: string | null
     preco: number
+    imagemUrl: string | null
     disponivel: boolean
     criadoEm: Date
     restauranteId: number
@@ -1166,6 +1204,7 @@ export interface ProdutoFieldRefs {
   readonly nome: Prisma.FieldRef<"Produto", 'String'>
   readonly descricao: Prisma.FieldRef<"Produto", 'String'>
   readonly preco: Prisma.FieldRef<"Produto", 'Float'>
+  readonly imagemUrl: Prisma.FieldRef<"Produto", 'String'>
   readonly disponivel: Prisma.FieldRef<"Produto", 'Boolean'>
   readonly criadoEm: Prisma.FieldRef<"Produto", 'DateTime'>
   readonly restauranteId: Prisma.FieldRef<"Produto", 'Int'>

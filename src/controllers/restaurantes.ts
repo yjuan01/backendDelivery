@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { prisma } from "../../config/prisma";
-
+ 
 const restaurantesController = {
   async list(request: Request, response: Response): Promise<void> {
     try {
@@ -12,7 +12,8 @@ const restaurantesController = {
           endereco: true,
           telefone: true,
           categoria: true,
-          emoji: true,
+          imagemCapa: true,
+          imagemPerfil: true,
           tempo: true,
           nota: true,
           taxa: true,
@@ -20,7 +21,7 @@ const restaurantesController = {
         },
         orderBy: { nome: "asc" },
       });
-
+ 
       response.status(200).json(restaurantes);
     } catch (err) {
       response.status(500).json({
@@ -29,10 +30,10 @@ const restaurantesController = {
       });
     }
   },
-
+ 
   async getById(request: Request, response: Response): Promise<void> {
     const { id } = request.params;
-
+ 
     try {
       const restaurante = await prisma.restaurante.findUnique({
         where: { id: Number(id) },
@@ -40,12 +41,12 @@ const restaurantesController = {
           produtos: true,
         },
       });
-
+ 
       if (!restaurante) {
         response.status(404).json({ error: "Restaurante não encontrado." });
         return;
       }
-
+ 
       response.status(200).json(restaurante);
     } catch (err) {
       response.status(500).json({
@@ -54,18 +55,18 @@ const restaurantesController = {
       });
     }
   },
-
+ 
   async create(request: Request, response: Response): Promise<void> {
-    const { nome, descricao, endereco, telefone, categoria, emoji, tempo, nota, taxa } =
+    const { nome, descricao, endereco, telefone, categoria, imagemCapa, imagemPerfil, tempo, nota, taxa } =
       request.body;
-
+ 
     if (!nome || !endereco) {
       response
         .status(400)
         .json({ error: "Nome e endereço são obrigatórios." });
       return;
     }
-
+ 
     try {
       const restaurante = await prisma.restaurante.create({
         data: {
@@ -74,13 +75,14 @@ const restaurantesController = {
           endereco,
           telefone,
           ...(categoria !== undefined && { categoria }),
-          ...(emoji !== undefined && { emoji }),
+          ...(imagemCapa !== undefined && { imagemCapa }),
+          ...(imagemPerfil !== undefined && { imagemPerfil }),
           ...(tempo !== undefined && { tempo }),
           ...(nota !== undefined && { nota: Number(nota) }),
           ...(taxa !== undefined && { taxa: Number(taxa) }),
         },
       });
-
+ 
       response.status(201).json(restaurante);
     } catch (err) {
       response.status(500).json({
@@ -89,12 +91,12 @@ const restaurantesController = {
       });
     }
   },
-
+ 
   async update(request: Request, response: Response): Promise<void> {
     const { id } = request.params;
-    const { nome, descricao, endereco, telefone, categoria, emoji, tempo, nota, taxa } =
+    const { nome, descricao, endereco, telefone, categoria, imagemCapa, imagemPerfil, tempo, nota, taxa } =
       request.body;
-
+ 
     try {
       const data: Record<string, unknown> = {};
       if (nome !== undefined) data.nome = nome;
@@ -102,16 +104,17 @@ const restaurantesController = {
       if (endereco !== undefined) data.endereco = endereco;
       if (telefone !== undefined) data.telefone = telefone;
       if (categoria !== undefined) data.categoria = categoria;
-      if (emoji !== undefined) data.emoji = emoji;
+      if (imagemCapa !== undefined) data.imagemCapa = imagemCapa;
+      if (imagemPerfil !== undefined) data.imagemPerfil = imagemPerfil;
       if (tempo !== undefined) data.tempo = tempo;
       if (nota !== undefined) data.nota = Number(nota);
       if (taxa !== undefined) data.taxa = Number(taxa);
-
+ 
       const restaurante = await prisma.restaurante.update({
         where: { id: Number(id) },
         data,
       });
-
+ 
       response.status(200).json(restaurante);
     } catch (err: any) {
       if (err.code === "P2025") {
@@ -124,32 +127,32 @@ const restaurantesController = {
       });
     }
   },
-
+ 
   async deleteById(request: Request, response: Response): Promise<void> {
     const { id } = request.params;
-
+ 
     try {
       // Deleta todos os itens de pedidos dos produtos do restaurante
       const produtos = await prisma.produto.findMany({
         where: { restauranteId: Number(id) }
       });
-
+ 
       for (const produto of produtos) {
         await prisma.itemPedido.deleteMany({
           where: { produtoId: produto.id }
         });
       }
-
+ 
       // Deleta todos os produtos do restaurante
       await prisma.produto.deleteMany({
         where: { restauranteId: Number(id) }
       });
-
+ 
       // Deleta todos os pedidos do restaurante
       await prisma.pedido.deleteMany({
         where: { restauranteId: Number(id) }
       });
-
+ 
       // Finalmente deleta o restaurante
       await prisma.restaurante.delete({ where: { id: Number(id) } });
       response
@@ -167,5 +170,5 @@ const restaurantesController = {
     }
   },
 };
-
+ 
 export default restaurantesController;

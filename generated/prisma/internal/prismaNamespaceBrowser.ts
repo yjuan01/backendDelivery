@@ -90,7 +90,8 @@ export const RestauranteScalarFieldEnum = {
   endereco: 'endereco',
   telefone: 'telefone',
   categoria: 'categoria',
-  emoji: 'emoji',
+  imagemCapa: 'imagemCapa',
+  imagemPerfil: 'imagemPerfil',
   tempo: 'tempo',
   nota: 'nota',
   taxa: 'taxa',
@@ -105,6 +106,7 @@ export const ProdutoScalarFieldEnum = {
   nome: 'nome',
   descricao: 'descricao',
   preco: 'preco',
+  imagemUrl: 'imagemUrl',
   disponivel: 'disponivel',
   criadoEm: 'criadoEm',
   restauranteId: 'restauranteId'

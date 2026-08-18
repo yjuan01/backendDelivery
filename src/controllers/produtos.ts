@@ -37,7 +37,7 @@ const produtosController = {
   },
 
   async create(request: Request, response: Response): Promise<void> {
-    const { nome, descricao, preco, restauranteId } = request.body;
+    const { nome, descricao, preco, restauranteId, imagemUrl } = request.body;
 
     if (!nome || preco == null || !restauranteId) {
       response.status(400).json({ error: "Nome, preço e restauranteId são obrigatórios." });
@@ -51,6 +51,7 @@ const produtosController = {
           descricao,
           preco: Number(preco),
           restauranteId: Number(restauranteId),
+          imagemUrl,
         },
       });
       response.status(201).json(produto);
@@ -61,7 +62,7 @@ const produtosController = {
 
   async update(request: Request, response: Response): Promise<void> {
     const { id } = request.params;
-    const { nome, descricao, preco, disponivel } = request.body;
+    const { nome, descricao, preco, disponivel, imagemUrl } = request.body;
 
     try {
       const produto = await prisma.produto.update({
@@ -71,6 +72,7 @@ const produtosController = {
           descricao,
           preco: preco != null ? Number(preco) : undefined,
           disponivel,
+          imagemUrl,
         },
       });
       response.status(200).json(produto);
