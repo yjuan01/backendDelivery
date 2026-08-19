@@ -1,46 +1,58 @@
 # 🛵 Delivery API — TCC Backend
 
-API REST para gerenciamento de delivery com Node.js, TypeScript, Express, Prisma e SQLite.
+API REST para gerenciamento de delivery, construída com Node.js, TypeScript, Express, Prisma e SQLite.
 
-## 📌 Introdução
+---
 
-Este repositório contém o backend do sistema de delivery para TCC.
+## 📌 Sobre o projeto
 
-- Nome do projeto: **Delivery API**
-- Problema: facilitar o cadastro de restaurantes, produtos e pedidos em um sistema de delivery simples
-- Objetivo: prover uma API backend para operações de usuários, restaurantes, produtos e pedidos
-- Público-alvo: desenvolvedores, avaliadores e usuários de aplicativos de delivery
+| | |
+|---|---|
+| **Nome** | Delivery API |
+| **Problema** | Facilitar o cadastro e a gestão de restaurantes, produtos e pedidos em um sistema de delivery |
+| **Objetivo** | Prover uma API backend para operações de usuários, restaurantes, produtos e pedidos |
+| **Público-alvo** | Desenvolvedores, avaliadores e aplicações de delivery (web/mobile) que consumam esta API |
+
+> Este repositório contém **apenas o backend** do TCC. Não há frontend web, aplicativo mobile ou solução IoT incluídos neste código.
+
+---
 
 ## 🚀 Tecnologias utilizadas
 
-- Node.js
-- TypeScript
-- Express
-- Prisma ORM
-- SQLite
-- JWT (JSON Web Tokens)
-- Swagger UI
-- TSX
-- bcryptjs
-- cors
-- dotenv
+- **Node.js**
+- **TypeScript**
+- **Express**
+- **Prisma ORM**
+- **SQLite**
+- **JWT** (JSON Web Tokens)
+- **Swagger UI** (documentação interativa da API)
+- **TSX** (execução TypeScript em desenvolvimento)
+- **bcryptjs** (hash de senhas)
+- **cors**
+- **dotenv**
 
-## 🏗️ Arquitetura do sistema
+---
 
-A aplicação segue uma arquitetura em camadas simples:
+## 🏗️ Arquitetura
 
-- `src/index.ts`: inicializa o servidor HTTP
-- `src/app.ts`: configura o Express, o parser JSON, CORS e as rotas
-- `src/routes.ts`: define os endpoints disponíveis
-- `src/controllers/*`: contém a lógica de cada recurso
-- `src/middlewares/authentication.ts`: middleware de autenticação JWT
-- `config/prisma.ts`: inicializa o cliente Prisma
-- `prisma/schema.prisma`: modelo do banco de dados
-- `prisma/seed.ts`: dados iniciais para desenvolvimento
+A aplicação segue uma arquitetura em camadas:
 
-O fluxo de dados é:
-
+```
 cliente HTTP → Express → rota → controller → Prisma → banco de dados
+```
+
+| Camada | Responsabilidade |
+|---|---|
+| `src/index.ts` | Inicializa o servidor HTTP |
+| `src/app.ts` | Configura o Express, parser JSON, CORS e rotas |
+| `src/routes.ts` | Define os endpoints disponíveis |
+| `src/controllers/*` | Contém a lógica de cada recurso (usuários, restaurantes, produtos, pedidos) |
+| `src/middlewares/authentication.ts` | Middleware de autenticação JWT |
+| `config/prisma.ts` | Inicializa o cliente Prisma |
+| `prisma/schema.prisma` | Modelo do banco de dados |
+| `prisma/seed.ts` | Popula dados iniciais para desenvolvimento |
+
+---
 
 ## 📁 Estrutura do projeto
 
@@ -50,7 +62,7 @@ BackEndDelivery-TCC/
 │   ├── prisma.ts
 │   └── swaggerConfig.ts
 ├── generated/
-│   └── prisma/      # Prisma Client gerado
+│   └── prisma/          # Prisma Client gerado
 ├── prisma/
 │   ├── migrations/
 │   ├── schema.prisma
@@ -71,15 +83,17 @@ BackEndDelivery-TCC/
 └── README.md
 ```
 
+---
+
 ## ⚙️ Como executar
 
-1. Instale as dependências:
+**1. Instale as dependências**
 
 ```bash
 npm install
 ```
 
-2. Configure o arquivo `.env` na raiz com as variáveis abaixo:
+**2. Configure o `.env`** na raiz do projeto:
 
 ```env
 DATABASE_URL="file:./dev.db"
@@ -87,63 +101,64 @@ JWT_SECRET="sua_chave_secreta_troque_em_producao"
 PORT=8080
 ```
 
-3. Crie o banco e aplique as migrations:
+**3. Crie o banco e aplique as migrations**
 
 ```bash
 npm run db:migrate
 ```
 
-4. Execute o seed para popular dados iniciais:
+**4. Popule dados iniciais (opcional, mas recomendado)**
 
 ```bash
 npm run db:seed
 ```
 
-5. Inicie a aplicação:
+**5. Inicie a aplicação**
 
 ```bash
 npm start
 ```
 
-6. Em desenvolvimento, use:
+Em desenvolvimento, use:
 
 ```bash
 npm run dev
 ```
 
-7. Abra a documentação Swagger em:
+**6. Acesse a documentação Swagger**
 
-```text
+```
 http://localhost:3000/docs
 ```
 
+---
+
 ## 🔐 Autenticação
 
-A API possui suporte a login com JWT. O token é gerado ao autenticar o usuário e pode ser usado nas rotas que exigem autorização.
-
-Header de exemplo:
+A API oferece login com JWT. O token é gerado ao autenticar o usuário e deve ser enviado nas rotas que exigem autorização.
 
 ```http
 Authorization: Bearer <token>
 ```
 
-> Observação: o middleware de autenticação está implementado em `src/middlewares/authentication.ts`.
+> O middleware de autenticação está implementado em `src/middlewares/authentication.ts`.
+
+---
 
 ## 📡 Endpoints disponíveis
 
 ### Usuários
 
-| Método | Rota                    | Descrição                    | Autenticação |
-|--------|-------------------------|------------------------------|--------------|
-| POST   | /usuarios/registrar     | Registrar novo usuário       | não          |
-| POST   | /usuarios/login         | Fazer login e receber token  | não          |
-| GET    | /usuarios               | Listar usuários              | não          |
-| GET    | /usuarios/:id           | Buscar usuário por ID        | não          |
-| PUT    | /usuarios/:id           | Atualizar usuário            | não          |
-| DELETE | /usuarios/:id           | Deletar usuário              | não          |
+| Método | Rota | Descrição | Autenticação |
+|--------|------|-----------|:---:|
+| POST | `/usuarios/registrar` | Registrar novo usuário | não |
+| POST | `/usuarios/login` | Fazer login e receber token | não |
+| GET | `/usuarios` | Listar usuários | não |
+| GET | `/usuarios/:id` | Buscar usuário por ID | não |
+| PUT | `/usuarios/:id` | Atualizar usuário | não |
+| DELETE | `/usuarios/:id` | Deletar usuário | não |
 
-#### Exemplo de body para registro
-
+**Registro**
 ```json
 {
   "nome": "João Silva",
@@ -153,8 +168,7 @@ Authorization: Bearer <token>
 }
 ```
 
-#### Exemplo de body para login
-
+**Login**
 ```json
 {
   "email": "joao@email.com",
@@ -164,16 +178,15 @@ Authorization: Bearer <token>
 
 ### Restaurantes
 
-| Método | Rota                    | Descrição                    |
-|--------|-------------------------|------------------------------|
-| GET    | /restaurantes           | Listar todos os restaurantes |
-| GET    | /restaurantes/:id       | Buscar restaurante por ID     |
-| POST   | /restaurantes           | Criar restaurante             |
-| PUT    | /restaurantes/:id       | Atualizar restaurante         |
-| DELETE | /restaurantes/:id       | Deletar restaurante           |
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/restaurantes` | Listar todos os restaurantes |
+| GET | `/restaurantes/:id` | Buscar restaurante por ID |
+| POST | `/restaurantes` | Criar restaurante |
+| PUT | `/restaurantes/:id` | Atualizar restaurante |
+| DELETE | `/restaurantes/:id` | Deletar restaurante |
 
-#### Exemplo de body para criação de restaurante
-
+**Criação**
 ```json
 {
   "nome": "Burger House",
@@ -185,16 +198,15 @@ Authorization: Bearer <token>
 
 ### Produtos
 
-| Método | Rota                                   | Descrição                    |
-|--------|----------------------------------------|------------------------------|
-| GET    | /produtos/restaurante/:restauranteId   | Listar produtos por restaurante |
-| GET    | /produtos/:id                          | Buscar produto por ID        |
-| POST   | /produtos                              | Criar produto                |
-| PUT    | /produtos/:id                          | Atualizar produto            |
-| DELETE | /produtos/:id                          | Deletar produto              |
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/produtos/restaurante/:restauranteId` | Listar produtos por restaurante |
+| GET | `/produtos/:id` | Buscar produto por ID |
+| POST | `/produtos` | Criar produto |
+| PUT | `/produtos/:id` | Atualizar produto |
+| DELETE | `/produtos/:id` | Deletar produto |
 
-#### Exemplo de body para criação de produto
-
+**Criação**
 ```json
 {
   "nome": "X-Burger",
@@ -206,17 +218,16 @@ Authorization: Bearer <token>
 
 ### Pedidos
 
-| Método | Rota                     | Descrição                          |
-|--------|--------------------------|------------------------------------|
-| GET    | /pedidos                 | Listar todos os pedidos            |
-| GET    | /pedidos/meus            | Listar pedidos do usuário atual    |
-| GET    | /pedidos/:id             | Buscar pedido por ID               |
-| POST   | /pedidos                 | Criar novo pedido                  |
-| PATCH  | /pedidos/:id/status      | Atualizar status do pedido         |
-| DELETE | /pedidos/:id             | Deletar pedido                     |
+| Método | Rota | Descrição |
+|--------|------|-----------|
+| GET | `/pedidos` | Listar todos os pedidos |
+| GET | `/pedidos/meus` | Listar pedidos do usuário atual |
+| GET | `/pedidos/:id` | Buscar pedido por ID |
+| POST | `/pedidos` | Criar novo pedido |
+| PATCH | `/pedidos/:id/status` | Atualizar status do pedido |
+| DELETE | `/pedidos/:id` | Deletar pedido |
 
-#### Exemplo de body para criação de pedido
-
+**Criação**
 ```json
 {
   "restauranteId": 1,
@@ -228,24 +239,20 @@ Authorization: Bearer <token>
 }
 ```
 
-#### Exemplo de body para atualizar status
-
+**Atualização de status**
 ```json
 {
   "status": "confirmado"
 }
 ```
 
-Status válidos:
+Status válidos: `pendente` · `confirmado` · `em_preparo` · `saiu_entrega` · `entregue` · `cancelado`
 
-- `pendente`
-- `confirmado`
-- `em_preparo`
-- `saiu_entrega`
-- `entregue`
-- `cancelado`
+---
 
 ## 🗄️ Banco de dados
+
+**ORM:** Prisma · **Banco:** SQLite (`prisma/schema.prisma` define o modelo completo)
 
 ### Tabelas / modelos
 
@@ -270,22 +277,25 @@ Usuario 1 ── * Pedido * ── 1 Restaurante
                  |
                  *
                  ItemPedido * ── 1 Produto
-``` 
+```
 
-## 📌 Observações do projeto
-
-- Este repositório contém o backend do TCC.
-- Não há frontend web, aplicativo mobile ou solução IoT incluídos neste código.
-- A documentação de API também é exposta via Swagger em `/docs`.
+---
 
 ## 🛠️ Scripts úteis
 
-```bash
-npm install
-npm start
-npm run dev
-npm run db:migrate
-npm run db:generate
-npm run db:studio
-npm run db:seed
-```
+| Script | Descrição |
+|---|---|
+| `npm install` | Instala as dependências |
+| `npm start` | Inicia a aplicação em produção |
+| `npm run dev` | Inicia a aplicação em modo desenvolvimento |
+| `npm run db:migrate` | Cria/atualiza o banco com as migrations |
+| `npm run db:generate` | Gera o Prisma Client |
+| `npm run db:studio` | Abre o Prisma Studio (interface visual do banco) |
+| `npm run db:seed` | Popula o banco com dados iniciais |
+
+---
+
+## 📌 Observações
+
+- Este repositório contém apenas o **backend** do TCC.
+- A documentação interativa da API também está disponível via Swagger em `/docs`.
